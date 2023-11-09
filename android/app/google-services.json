@@ -12,7 +12,12 @@
           "package_name": "com.example.ensanim"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "422265577314-cvs5lmuep360ohtngop9lup34faims0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDdEs4NKdLzHB4W-a0jXn5uXYPqvexOZ0Y"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422265577314-cvs5lmuep360ohtngop9lup34faims0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

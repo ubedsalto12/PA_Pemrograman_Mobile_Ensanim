@@ -3,6 +3,7 @@ import 'package:ensanim/signup_screen.dart';
 import 'package:ensanim/home_page_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +19,74 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordController = TextEditingController();
   String _email = '';
   String _password = '';
+
+  Future<void> _handleGoogleLogin() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser == null) {
+      // Pengguna membatalkan login
+      return;
+    }
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      print("User Logged In with Google: ${userCredential.user!.displayName}");
+
+      // Lanjutkan ke halaman sesuai dengan email (seperti yang Anda lakukan sebelumnya)
+      String userEmail = userCredential.user!.email!;
+      Widget destinationPage;
+      if (userEmail == "admin@gmail.com") {
+        destinationPage = HomePageAdmin();
+      } else {
+        destinationPage = HomePageUser();
+      }
+
+      // Menampilkan notifikasi saat berhasil login
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Welcome, ${userCredential.user!.displayName}!"),
+        ),
+      );
+
+      // Pindah ke halaman yang sesuai
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => destinationPage,
+        ),
+      );
+    } catch (e) {
+      // Tangani kesalahan saat login dengan Google
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Google Login Error"),
+            content: Text(
+                "Terjadi kesalahan saat login dengan Google. Silakan coba lagi."),
+            actions: <Widget>[
+              TextButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      print("Error During Google Login: $e");
+    }
+  }
+
   void _handleLogin() async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -132,6 +201,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               child: Text('Login'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: _handleGoogleLogin,
+              child: Text('Login with Google'),
             ),
             SizedBox(
               height: 10,
