@@ -1,48 +1,51 @@
-import 'package:ensanim/login_screeen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:ensanim/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
-class HomePageUser extends StatefulWidget {
-  const HomePageUser({super.key});
 
+class HomePageUser extends StatefulWidget {
   @override
-  State<HomePageUser> createState() => _HomePageUserState();
+  _HomePageUserState createState() => _HomePageUserState();
 }
 
 class _HomePageUserState extends State<HomePageUser> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    // Widget Home(),
+    // Widget Liked(),
+    UserProfilePage(), // Profile Page
+  ];
+
   @override
   Widget build(BuildContext context) {
-    String? _email = _auth.currentUser!.email;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dashboard"),
+        title: Text('User Home Page'),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Logged In With $_email"),
-              SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _auth.signOut();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ));
-                  },
-                  child: Text("Signout"))
-            ],
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Liked',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }
