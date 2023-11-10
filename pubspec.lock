@@ -190,6 +190,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_admin_scaffold:
+    dependency: "direct main"
+    description:
+      name: flutter_admin_scaffold
+      sha256: "16f39c54d999e025e5b8fb680c86836375b3c0d63fded9d9219c309fa31f7f1e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   flutter_lints:
     dependency: "direct dev"
     description:

@@ -11,6 +11,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late User _user;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> _userDataStream;
+
   TextEditingController _displayNameController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
   TextEditingController _tanggalLahirController = TextEditingController();
@@ -19,29 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void initState() {
     super.initState();
     _user = _auth.currentUser!;
-    _fetchUserData();
-  }
-
-  Future<void> _fetchUserData() async {
-    DocumentSnapshot<Map<String, dynamic>> userDoc =
-        await _firestore.collection('users').doc(_user.uid).get();
-    if (userDoc.exists) {
-      setState(() {
-        _displayNameController.text = userDoc.get('displayName');
-        _cityController.text = userDoc.get('city');
-        _tanggalLahirController.text = userDoc.get('tanggal_lahir');
-      });
-    }
-  }
-
-  Future<void> _updateProfile() async {
-    await _firestore.collection('users').doc(_user.uid).update({
-      'displayName': _displayNameController.text,
-      'city': _cityController.text,
-      'tanggal_lahir': _tanggalLahirController.text,
-    });
-    // Kembali ke halaman profil
-    Navigator.pop(context);
+    _userDataStream = _firestore.collection('users').doc(_user.uid).snapshots();
   }
 
   @override
@@ -51,29 +31,62 @@ class _EditProfilePageState extends State<EditProfilePage> {
         title: Text('Edit Profile'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextFormField(
-              controller: _displayNameController,
-              decoration: InputDecoration(labelText: 'Display Name'),
-            ),
-            TextFormField(
-              controller: _cityController,
-              decoration: InputDecoration(labelText: 'City'),
-            ),
-            TextFormField(
-              controller: _tanggalLahirController,
-              decoration: InputDecoration(labelText: 'Tanggal Lahir (YYYY-MM-DD)'),
-            ),
-            ElevatedButton(
-              onPressed: _updateProfile,
-              child: Text('Save'),
-            ),
-          ],
+        padding: EdgeInsets.all(16.0),
+        child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+          stream: _userDataStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(); // Tampilkan loading indicator jika data masih dimuat
+            }
+
+            if (!snapshot.hasData || !snapshot.data!.exists) {
+              return Text('User data not found!'); // Tampilkan pesan jika data pengguna tidak ditemukan
+            }
+
+            var userData = snapshot.data!;
+
+            _displayNameController.text = userData.get('displayName');
+            _cityController.text = userData.get('city');
+            _tanggalLahirController.text = userData.get('tanggal_lahir');
+
+            return Column(
+              children: <Widget>[
+                TextField(
+                  controller: _displayNameController,
+                  decoration: InputDecoration(labelText: 'Display Name'),
+                ),
+                TextField(
+                  controller: _cityController,
+                  decoration: InputDecoration(labelText: 'City'),
+                ),
+                TextField(
+                  controller: _tanggalLahirController,
+                  decoration: InputDecoration(labelText: 'Birthdate'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    // Panggil fungsi untuk update data pengguna di Firestore
+                    await _updateUserData();
+
+                    // Kembali ke halaman profil setelah perubahan disimpan
+                    Navigator.pop(context);
+                  },
+                  child: Text('Save'),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
+  }
+
+  Future<void> _updateUserData() async {
+    // Update data pengguna di Firestore
+    await _firestore.collection('users').doc(_user.uid).update({
+      'displayName': _displayNameController.text,
+      'city': _cityController.text,
+      'tanggal_lahir': _tanggalLahirController.text,
+    });
   }
 }
