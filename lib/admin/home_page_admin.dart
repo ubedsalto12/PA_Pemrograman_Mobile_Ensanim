@@ -1,6 +1,7 @@
-import 'package:ensanim/admin/side_bar_screens/CRUD_screen.dart';
+import 'package:ensanim/admin/side_bar_screens/add_animal_screen.dart';
 import 'package:ensanim/admin/side_bar_screens/dashboard_screen.dart';
 import 'package:ensanim/admin/side_bar_screens/logout_screens.dart';
+import 'package:ensanim/admin/side_bar_screens/read_animal_screen.dart';
 import 'package:ensanim/login_screeen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
@@ -64,9 +65,14 @@ class _HomePageAdminState extends State<HomePageAdmin> {
           _selectedItem = DashBoardScreen();
         });
         break;
-      case CrudScreens.routeName:
+      case AddAnimal.routeName:
         setState(() {
-          _selectedItem = CrudScreens();
+          _selectedItem = AddAnimal();
+        });
+        break;
+      case ReadAnimal.routeName:
+        setState(() {
+          _selectedItem = ReadAnimal();
         });
         break;
       case LogoutScreen.routeName:
@@ -92,9 +98,14 @@ class _HomePageAdminState extends State<HomePageAdmin> {
             icon: Icons.dashboard,
           ),
           AdminMenuItem(
-            title: 'CRUD',
-            route: CrudScreens.routeName,
-            icon: Icons.dashboard,
+            title: 'Add Data Animal',
+            route: AddAnimal.routeName,
+            icon: Icons.add,
+          ),
+          AdminMenuItem(
+            title: 'Read Data Animal',
+            route: ReadAnimal.routeName,
+            icon: Icons.remove_red_eye,
           ),
           AdminMenuItem(
             title: 'Logout',
