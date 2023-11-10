@@ -1,4 +1,4 @@
-import 'package:ensanim/home_page_admin.dart';
+import 'package:ensanim/admin/home_page_admin.dart';
 import 'package:ensanim/home_page_user.dart';
 import 'package:ensanim/signup_screen.dart';
 
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // Lanjutkan ke halaman sesuai dengan email (seperti yang Anda lakukan sebelumnya)
       String userEmail = userCredential.user!.email!;
       Widget destinationPage;
-      if (userEmail == "admin@gmail.com") {
+      if (userEmail == "muhammadrezaubaidillah@gmail.com") {
         destinationPage = HomePageAdmin();
       } else {
         destinationPage = HomePageUser();
