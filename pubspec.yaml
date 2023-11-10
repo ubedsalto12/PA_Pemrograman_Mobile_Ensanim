@@ -40,6 +40,10 @@ dependencies:
   firebase_auth: ^4.12.1
   google_sign_in: ^6.1.6
   flutter_admin_scaffold: ^1.2.0
+  image_picker: ^1.0.4
+  firebase_storage: ^11.5.0
+  font_awesome_flutter: ^10.6.0
+  uuid: ^4.2.1
 
 dev_dependencies:
   flutter_test:
