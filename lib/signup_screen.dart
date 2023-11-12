@@ -33,6 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // Menyimpan data pengguna ke Firestore
       await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+        'image':'',
         'email': _email,
         'displayName': _displayName,
         'city': _city,
