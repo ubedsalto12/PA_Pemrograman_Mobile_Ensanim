@@ -1,7 +1,7 @@
-import 'package:ensanim/admin/side_bar_screens/add_animal_screen.dart';
-import 'package:ensanim/admin/side_bar_screens/dashboard_screen.dart';
-import 'package:ensanim/admin/side_bar_screens/logout_screens.dart';
-import 'package:ensanim/admin/side_bar_screens/read_animal_screen.dart';
+import 'package:ensanim/admin/side_bar_screens_admin/add_animal_screen.dart';
+import 'package:ensanim/admin/side_bar_screens_admin/dashboard_screen.dart';
+import 'package:ensanim/admin/side_bar_screens_admin/logout_screens.dart';
+import 'package:ensanim/admin/side_bar_screens_admin/read_animal_screen.dart';
 import 'package:ensanim/login_screeen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';

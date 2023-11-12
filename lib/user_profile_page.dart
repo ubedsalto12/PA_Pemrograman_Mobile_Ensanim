@@ -1,3 +1,5 @@
+
+import 'package:ensanim/login_screeen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,9 +21,56 @@ class _UserProfilePageState extends State<UserProfilePage> {
     _user = _auth.currentUser!;
   }
 
+  Future<void> _signOut() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout Confirmation'),
+          content: Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the alert
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await _auth.signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (route) =>
+                      false, // This prevents the user from going back to the UserProfilePage
+                );
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('User Profile'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              // Navigate to the edit profile page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           stream: _firestore.collection('users').doc(_user.uid).snapshots(),
@@ -40,22 +89,33 @@ class _UserProfilePageState extends State<UserProfilePage> {
             String _city = userData.get('city') ?? '';
             String _tanggalLahir = userData.get('tanggal_lahir') ?? '';
 
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            return ListView(
+              padding: EdgeInsets.all(16),
               children: <Widget>[
-                Text('Name: $_displayName'),
-                Text('Email: $_email'),
-                Text('City: $_city'),
-                Text('Birthdate: $_tanggalLahir'),
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigasi ke halaman edit profil
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EditProfilePage()),
-                    );
-                  },
-                  child: Text('Edit Profile'),
+                ListTile(
+                  title: Text('Name'),
+                  subtitle: Text(_displayName),
+                  leading: Icon(Icons.person),
+                ),
+                ListTile(
+                  title: Text('Email'),
+                  subtitle: Text(_email),
+                  leading: Icon(Icons.email),
+                ),
+                ListTile(
+                  title: Text('City'),
+                  subtitle: Text(_city),
+                  leading: Icon(Icons.location_city),
+                ),
+                ListTile(
+                  title: Text('Birthdate'),
+                  subtitle: Text(_tanggalLahir),
+                  leading: Icon(Icons.calendar_today),
+                ),
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: _signOut,
+                  tooltip: 'Logout', // Tooltip for the IconButton,
                 ),
               ],
             );

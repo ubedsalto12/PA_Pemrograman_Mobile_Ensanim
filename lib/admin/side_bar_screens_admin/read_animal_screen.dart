@@ -1,5 +1,5 @@
-import 'package:ensanim/admin/side_bar_screens/animal_details.dart';
-import 'package:ensanim/admin/side_bar_screens/update_animal.dart';
+import 'package:ensanim/admin/side_bar_screens_admin/animal_details.dart';
+import 'package:ensanim/admin/side_bar_screens_admin/update_animal.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
