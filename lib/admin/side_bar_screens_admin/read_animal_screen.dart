@@ -62,7 +62,7 @@ class _ReadAnimalState extends State<ReadAnimal> {
                   fit: BoxFit.cover,
                 ),
                 title: Text(data['name']),
-                subtitle: Text('Love: ${data['love']}'),
+                subtitle: Text('like: ${data['like']}'),
                 onTap: () {
                   // Navigasi ke halaman detail
                   Navigator.push(
@@ -73,7 +73,7 @@ class _ReadAnimalState extends State<ReadAnimal> {
                         order: data['order'],
                         imageUrl: data['image_url'],
                         description: data['description'],
-                        love: 'Love: ${data['love']}',
+                        like: 'like: ${data['like']}',
                       ),
                     ),
                   );
