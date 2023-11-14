@@ -5,13 +5,13 @@ class AnimalDetail extends StatelessWidget {
   final String order;
   final String description;
   final String imageUrl;
-  final String love;
+  final String like;
 
   AnimalDetail({
     required this.name,
     required this.order,
     required this.description,
-    required this.love,
+    required this.like,
     required this.imageUrl,
   });
 
@@ -44,7 +44,7 @@ class AnimalDetail extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Jumlah $love',
+              'Jumlah $like',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20),

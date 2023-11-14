@@ -1,4 +1,6 @@
+import 'package:ensanim/user_liked_animal_page.dart';
 import 'package:ensanim/user_profile_page.dart';
+import 'package:ensanim/user_read_animal_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -12,6 +14,8 @@ class _HomePageUserState extends State<HomePageUser> {
   final List<Widget> _children = [
     // Widget Home(),
     // Widget Liked(),
+    ReadAnimalUser(),
+    LikedAnimalsPage(),
     UserProfilePage(), // Profile Page
   ];
 
