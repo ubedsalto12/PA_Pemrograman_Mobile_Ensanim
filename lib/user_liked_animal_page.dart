@@ -73,6 +73,31 @@ class LikedAnimalsList extends StatelessWidget {
             var documentId = snapshot.data!.docs[index].id;
 
             return ListTile(
+              leading: FutureBuilder(
+                future: firestore.collection('animals').doc(data['animalId']).get(),
+                builder: (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
+                  if (animalSnapshot.hasError || !animalSnapshot.hasData) {
+                    return Text('Error');
+                  }
+
+                  var animalData = animalSnapshot.data!.data() as Map<String, dynamic>;
+
+                  // Check if 'image_url' exists in animalData
+                  if (animalData.containsKey('image_url')) {
+                    String imageUrl = animalData['image_url'];
+
+                    // Use Image.network to display the image
+                    return Image.network(
+                      imageUrl,
+                      width: 50, // You can adjust the width as needed
+                      height: 50, // You can adjust the height as needed
+                      fit: BoxFit.cover,
+                    );
+                  } else {
+                    return Text('No Image');
+                  }
+                },
+              ),
               title: FutureBuilder(
                 future: firestore.collection('animals').doc(data['animalId']).get(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
