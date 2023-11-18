@@ -46,7 +46,10 @@ class LikedAnimalsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: firestore.collection('likes').where('userId', isEqualTo: userId).snapshots(),
+      stream: firestore
+          .collection('likes')
+          .where('userId', isEqualTo: userId)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -65,22 +68,40 @@ class LikedAnimalsList extends StatelessWidget {
             child: Text('Tidak ada data hewan yang disukai.'),
           );
         }
+        for (var likedDoc in snapshot.data!.docs) {
+          var likedData = likedDoc.data() as Map<String, dynamic>;
+          var likedDocumentId = likedDoc.id;
+
+          firestore
+              .collection('animals')
+              .doc(likedData['animalId'])
+              .get()
+              .then((animalSnapshot) {
+            if (!animalSnapshot.exists) {
+              // Jika animalId tidak ditemukan di koleksi 'animals', hapus dokumen di koleksi 'likes'
+              firestore.collection('likes').doc(likedDocumentId).delete();
+            }
+          });
+        }
 
         return ListView.builder(
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
-            var data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-            var documentId = snapshot.data!.docs[index].id;
+            var data =
+                snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
             return ListTile(
               leading: FutureBuilder(
-                future: firestore.collection('animals').doc(data['animalId']).get(),
-                builder: (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
+                future:
+                    firestore.collection('animals').doc(data['animalId']).get(),
+                builder:
+                    (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
                   if (animalSnapshot.hasError || !animalSnapshot.hasData) {
                     return Text('Error');
                   }
 
-                  var animalData = animalSnapshot.data!.data() as Map<String, dynamic>;
+                  var animalData =
+                      animalSnapshot.data!.data() as Map<String, dynamic>;
 
                   // Check if 'image_url' exists in animalData
                   if (animalData.containsKey('image_url')) {
@@ -99,18 +120,20 @@ class LikedAnimalsList extends StatelessWidget {
                 },
               ),
               title: FutureBuilder(
-                future: firestore.collection('animals').doc(data['animalId']).get(),
-                builder: (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
+                future:
+                    firestore.collection('animals').doc(data['animalId']).get(),
+                builder:
+                    (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
                   if (animalSnapshot.hasError || !animalSnapshot.hasData) {
                     return Text('Error');
                   }
 
-                  var animalData = animalSnapshot.data!.data() as Map<String, dynamic>;
+                  var animalData =
+                      animalSnapshot.data!.data() as Map<String, dynamic>;
 
                   return Text(animalData['name']);
                 },
               ),
-              subtitle: Text('Animal ID: $documentId'),
             );
           },
         );
