@@ -1,11 +1,14 @@
+import 'package:ensanim/login_screeen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'home_page_user.dart';
 
 class IntroductionPage extends StatelessWidget {
-  const IntroductionPage({super.key});
+  const IntroductionPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    double lebar = MediaQuery.of(context).size.height;
+
     return IntroductionScreen(
       next: Text("Selanjutnya"),
       done: Text("Selesai"),
@@ -14,7 +17,7 @@ class IntroductionPage extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return HomePageUser();
+              return LoginScreen();
             },
           ),
         );
@@ -38,6 +41,11 @@ class IntroductionPage extends StatelessWidget {
           image: Image.asset("assets/images/intro1.jpg"),
         ),
       ],
+      // Tambahkan parameter `globalBackgroundColor` dengan nilai 600 atao yang seusai
+      globalBackgroundColor: lebar > 600
+          ? Colors.white
+          : const Color.fromARGB(228, 143, 69,
+              0), //warna akan berubah kalo kita ke atasin halaman/ menarik halaman
     );
   }
 }
