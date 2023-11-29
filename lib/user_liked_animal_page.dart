@@ -90,7 +90,6 @@ class LikedAnimalsList extends StatelessWidget {
           itemBuilder: (context, index) {
             var data =
                 snapshot.data!.docs[index].data() as Map<String, dynamic>;
-
             return ListTile(
               leading: FutureBuilder(
                 future:
