@@ -48,4 +48,3 @@ class IntroductionPage extends StatelessWidget {
               0), //warna akan berubah kalo kita ke atasin halaman/ menarik halaman
     );
   }
-}

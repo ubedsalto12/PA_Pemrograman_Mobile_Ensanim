@@ -26,6 +26,7 @@ class _LikedAnimalsPageState extends State<LikedAnimalsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Hewan yang Disukai'),
       ),
       body: _user != null
@@ -97,7 +98,7 @@ class LikedAnimalsList extends StatelessWidget {
                 builder:
                     (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
                   if (animalSnapshot.hasError || !animalSnapshot.hasData) {
-                    return Text('Error');
+                    return Text('Loading');
                   }
 
                   var animalData =
@@ -125,7 +126,7 @@ class LikedAnimalsList extends StatelessWidget {
                 builder:
                     (context, AsyncSnapshot<DocumentSnapshot> animalSnapshot) {
                   if (animalSnapshot.hasError || !animalSnapshot.hasData) {
-                    return Text('Error');
+                    return Text('Loading');
                   }
 
                   var animalData =
