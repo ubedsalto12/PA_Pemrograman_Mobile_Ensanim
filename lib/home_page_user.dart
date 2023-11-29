@@ -23,6 +23,7 @@ class _HomePageUserState extends State<HomePageUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('User Home Page'),
       ),
       body: _children[_currentIndex],

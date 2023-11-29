@@ -140,6 +140,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
+    // variabmel media query untuk ukuran layar
+    var lebar = MediaQuery.of(context).size.width;
+    // Tentukan fungsi untuk menentukan lebar tombol berdasarkan ukuran layar
+    double getButtonWidth() {
+      return lebar > 600 ? 200 : lebar * 0.8;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
@@ -201,6 +208,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   _handleLogin();
                 }
               },
+              // Atur lebar secara dinamis berdasarkan ukuran layar
+              style: ButtonStyle(
+                minimumSize:
+                    MaterialStateProperty.all(Size(getButtonWidth(), 50)),
+              ),
               child: Text('Login'),
             ),
             SizedBox(
@@ -208,6 +220,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: _handleGoogleLogin,
+              // Atur lebar secara dinamis berdasarkan ukuran layar
+              style: ButtonStyle(
+                minimumSize:
+                    MaterialStateProperty.all(Size(getButtonWidth(), 50)),
+              ),
               child: Text('Login with Google'),
             ),
             SizedBox(
