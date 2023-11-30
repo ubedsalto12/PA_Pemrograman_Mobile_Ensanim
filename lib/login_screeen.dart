@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:ensanim/admin/home_page_admin.dart';
 import 'package:ensanim/home_page_user.dart';
 import 'package:ensanim/signup_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -140,115 +140,137 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
-    // variabmel media query untuk ukuran layar
-    var lebar = MediaQuery.of(context).size.width;
-    // Tentukan fungsi untuk menentukan lebar tombol berdasarkan ukuran layar
+    var screenWidth = MediaQuery.of(context).size.width;
+
     double getButtonWidth() {
-      return lebar > 600 ? 200 : lebar * 0.8;
+      return screenWidth > 600 ? 200 : screenWidth * 0.8;
     }
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
+        backgroundColor: Colors.orange,
       ),
+      backgroundColor: Colors.orange[400],
       body: Center(
-          child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            TextFormField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Email",
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please Enter Your Email";
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() {
-                  _email = value;
-                });
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Password",
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please Enter Your password";
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() {
-                  _password = value;
-                });
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _handleLogin();
-                }
-              },
-              // Atur lebar secara dinamis berdasarkan ukuran layar
-              style: ButtonStyle(
-                minimumSize:
-                    MaterialStateProperty.all(Size(getButtonWidth(), 50)),
-              ),
-              child: Text('Login'),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: _handleGoogleLogin,
-              // Atur lebar secara dinamis berdasarkan ukuran layar
-              style: ButtonStyle(
-                minimumSize:
-                    MaterialStateProperty.all(Size(getButtonWidth(), 50)),
-              ),
-              child: Text('Login with Google'),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignUpScreen(),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Email",
                   ),
-                );
-              },
-              child: Text(
-                "Don't have an Account? Sign Up",
-                style: TextStyle(
-                  color: Colors.black, // Ubah warna teks sesuai kebutuhan
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Your Email";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      _email = value;
+                    });
+                  },
                 ),
-              ),
-            )
-          ]),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Your password";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      _password = value;
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _handleLogin();
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                    minimumSize:
+                        MaterialStateProperty.all(Size(getButtonWidth(), 50)),
+                  ),
+                  child: Text(
+                    'Login',
+                    
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: _handleGoogleLogin,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                    minimumSize:
+                        MaterialStateProperty.all(Size(getButtonWidth(), 50)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.email, 
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 9),
+                      Text(
+                        'Login with Google',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignUpScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Don't have an Account? Sign Up",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      )),
+      ),
     );
   }
 }

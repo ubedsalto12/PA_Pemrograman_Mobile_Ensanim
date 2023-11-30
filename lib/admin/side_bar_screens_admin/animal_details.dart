@@ -21,7 +21,9 @@ class AnimalDetail extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text('Detail Hewan'),
+        backgroundColor: Colors.orange, // Set the app bar background color
       ),
+      backgroundColor: Colors.yellow[100], // Set the scaffold background color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -26,6 +26,7 @@ class _ReadAnimalState extends State<ReadAnimal> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Daftar Hewan'),
+        backgroundColor: Colors.orange,
       ),
       body: Container(
         decoration: BoxDecoration(

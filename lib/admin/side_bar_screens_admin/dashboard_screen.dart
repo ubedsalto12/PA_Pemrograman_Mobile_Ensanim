@@ -11,14 +11,16 @@ class DashBoardScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Dashboard'),
+        backgroundColor: Colors.orange,
       ),
+      backgroundColor: Colors.orange,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Colors.yellow,
-              const Color.fromARGB(255, 255, 132, 0)
-            ], // Customize the gradient colors
+              Colors.orange,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -84,7 +86,7 @@ class DashboardData extends StatelessWidget {
                   child: _buildCountBox(
                     'Total Animals',
                     animalCount.toString(),
-                    Color.fromARGB(255, 255, 132, 0),
+                    Colors.orange,
                   ),
                 ),
                 SizedBox(width: 20),

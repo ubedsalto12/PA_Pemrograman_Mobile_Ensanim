@@ -83,13 +83,17 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
-      backgroundColor: Colors.white,
+      
       appBar: AppBar(
         title: const Text('Admin'),
+        backgroundColor: Colors.orange,
       ),
+      
       sideBar: SideBar(
         items: const [
           AdminMenuItem(
@@ -120,12 +124,12 @@ class _HomePageAdminState extends State<HomePageAdmin> {
         header: Container(
           height: 50,
           width: double.infinity,
-          color: const Color(0xff444444),
+          color: Colors.orange[600],
           child: const Center(
             child: Text(
               'Menu Admin',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -133,12 +137,12 @@ class _HomePageAdminState extends State<HomePageAdmin> {
         footer: Container(
           height: 50,
           width: double.infinity,
-          color: const Color(0xff444444),
+          color: Colors.orange[600],
           child: const Center(
             child: Text(
-              'footer',
+              '@Copyright Ensanim',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
