@@ -22,6 +22,7 @@ class _HomePageUserState extends State<HomePageUser> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('User Home Page'),
+        backgroundColor: Colors.orange,
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: buildBottomNavigationBar(),
@@ -35,14 +36,14 @@ class _HomePageUserState extends State<HomePageUser> {
   }
 
   Widget buildBottomNavigationBar() {
-    // Media Query ukuran berdasarkan layar
-    var lebar = MediaQuery.of(context).size.width;
+   
 
     // Penyesuaian atau konfigurasi lebar dari layar
-    int itemsCount = lebar > 600 ? 3 : 2;
+    int itemsCount =  3;
 
     return BottomNavigationBar(
       onTap: onTabTapped,
+      backgroundColor: Colors.yellow[200],
       currentIndex: _currentIndex,
       items: [
         BottomNavigationBarItem(
@@ -53,7 +54,7 @@ class _HomePageUserState extends State<HomePageUser> {
           icon: Icon(Icons.favorite),
           label: 'Liked',
         ),
-        if (lebar > 600) // tampilan halaman profil
+  
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',

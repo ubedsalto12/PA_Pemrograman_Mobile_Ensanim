@@ -28,10 +28,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
           email: _email, password: _password);
 
-      // Menambahkan displayName, city, dan tanggal_lahir ke informasi pengguna
+      // Adding displayName, city, and tanggal_lahir to user information
       await userCredential.user!.updateProfile(displayName: _displayName);
 
-      // Menyimpan data pengguna ke Firestore
+      // Saving user data to Firestore
       await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
         'image':'',
         'email': _email,
@@ -42,19 +42,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       print("User Registered: ${userCredential.user!.email}");
 
-      // Menampilkan notifikasi saat berhasil membuat akun
+      // Showing a notification when the account is successfully created
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Pendaftaran Berhasil"),
-            content: Text("Akun Anda telah berhasil dibuat."),
+            title: Text("Registration Successful"),
+            content: Text("Your account has been successfully created."),
             actions: <Widget>[
               TextButton(
                 child: Text("OK"),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  // Kembali ke halaman login
+                  // Navigate back to the login page
                   Navigator.of(context).pop();
                 },
               ),
@@ -63,13 +63,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         },
       );
     } catch (e) {
-      // Menampilkan pesan kesalahan saat gagal mendaftar
+      // Showing an error message when registration fails
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Gagal Mendaftar"),
-            content: Text("Terjadi kesalahan saat membuat akun. Silakan coba lagi."),
+            title: Text("Registration Failed"),
+            content: Text("An error occurred while creating the account. Please try again."),
             actions: <Widget>[
               TextButton(
                 child: Text("OK"),
@@ -87,12 +87,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var orangeColor = Color.fromARGB(255, 255, 132, 0);
+    var yellowColor = Colors.yellow;
+
     return Scaffold(
-      
       appBar: AppBar(
         title: Text('Sign Up'),
+        backgroundColor: orangeColor,
       ),
-      
+      backgroundColor: yellowColor,
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -106,6 +109,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Display Name",
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -125,6 +130,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "City",
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -143,13 +150,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _tanggalLahirController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: "Tanggal Lahir (YYYY-MM-DD)",
+                    labelText: "Birthdate (YYYY-MM-DD)",
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter your birthdate";
                     }
-                    // Validasi format tanggal lahir (contoh: YYYY-MM-DD)
+                    // Validate the birthdate format (e.g., YYYY-MM-DD)
                     RegExp datePattern = RegExp(r'^\d{4}-\d{2}-\d{2}$');
                     if (!datePattern.hasMatch(value)) {
                       return "Invalid date format (YYYY-MM-DD)";
@@ -169,6 +178,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Email",
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -190,6 +201,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Password",
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -214,6 +227,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                   },
                   child: Text('Sign Up'),
+                  style: ElevatedButton.styleFrom(
+                    primary: orangeColor,
+                  ),
                 )
               ],
             ),

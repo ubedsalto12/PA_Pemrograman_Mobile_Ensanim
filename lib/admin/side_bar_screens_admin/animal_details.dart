@@ -17,14 +17,20 @@ class AnimalDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lebar = MediaQuery.of(context).size.width;
+    var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text('Detail Hewan'),
+
         backgroundColor: Colors.orange, // Set the app bar background color
       ),
+
       backgroundColor: Colors.yellow[100], // Set the scaffold background color
       body: Center(
+        widthFactor: lebar,
+        heightFactor: tinggi,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

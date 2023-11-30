@@ -25,8 +25,6 @@ class _AddAnimalState extends State<AddAnimal> {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> _uploadData() async {
-    // ... (unchanged code)
-    
     if (_nameController.text.isEmpty ||
         _orderController.text.isEmpty ||
         _descriptionController.text.isEmpty) {
@@ -81,11 +79,11 @@ class _AddAnimalState extends State<AddAnimal> {
 
       // Tampilkan pesan upload berhasil
       ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Upload berhasil!'),
-        backgroundColor: Colors.green, // Snackbar background color
-      ),
-    );
+        SnackBar(
+          content: Text('Upload berhasil!'),
+          backgroundColor: Colors.green, // Snackbar background color
+        ),
+      );
     } else {
       // Tampilkan pesan jika gambar tidak dipilih
       ScaffoldMessenger.of(context).showSnackBar(
@@ -94,9 +92,6 @@ class _AddAnimalState extends State<AddAnimal> {
         ),
       );
     }
-
-   
-    
   }
 
   Future<void> _pickImage() async {
@@ -110,6 +105,8 @@ class _AddAnimalState extends State<AddAnimal> {
 
   @override
   Widget build(BuildContext context) {
+    var lebar = MediaQuery.of(context).size.width;
+    var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -118,6 +115,8 @@ class _AddAnimalState extends State<AddAnimal> {
       ),
       backgroundColor: Colors.orange,
       body: Container(
+        width: lebar,
+        height: tinggi,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           gradient: LinearGradient(

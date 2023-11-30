@@ -22,6 +22,8 @@ class _ReadAnimalState extends State<ReadAnimal> {
 
   @override
   Widget build(BuildContext context) {
+    var lebar = MediaQuery.of(context).size.width;
+    var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -29,6 +31,8 @@ class _ReadAnimalState extends State<ReadAnimal> {
         backgroundColor: Colors.orange,
       ),
       body: Container(
+        width: lebar,
+        height: tinggi,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.yellow, const Color.fromARGB(255, 255, 132, 0)],
