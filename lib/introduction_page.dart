@@ -44,8 +44,8 @@ class IntroductionPage extends StatelessWidget {
       // Tambahkan parameter `globalBackgroundColor` dengan nilai 600 atao yang seusai
       globalBackgroundColor: lebar > 600
           ? Colors.white
-          : const Color.fromARGB(228, 143, 69,
-              0), //warna akan berubah kalo kita ke atasin halaman/ menarik halaman
+          : Colors
+              .yellow, //warna akan berubah kalo kita ke atasin halaman/ menarik halaman
     );
   }
 }

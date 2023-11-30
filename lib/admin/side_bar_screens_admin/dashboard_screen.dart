@@ -11,23 +11,38 @@ class DashBoardScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Dashboard'),
+        backgroundColor: Colors.orange,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Welcome to the Dashboard!',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24,
-                ),
-              ),
-              SizedBox(height: 20),
-              DashboardData(),
+      backgroundColor: Colors.orange,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.yellow,
+              Colors.orange,
             ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Welcome to the Dashboard!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 20),
+                DashboardData(),
+              ],
+            ),
           ),
         ),
       ),
@@ -68,10 +83,19 @@ class DashboardData extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: _buildCountBox('Total Animals', animalCount.toString(), Colors.purple),
+                  child: _buildCountBox(
+                    'Total Animals',
+                    animalCount.toString(),
+                    Colors.orange,
+                  ),
                 ),
+                SizedBox(width: 20),
                 Expanded(
-                  child: _buildCountBox('Total Users', userCount.toString(), Colors.purple),
+                  child: _buildCountBox(
+                    'Total Users',
+                    userCount.toString(),
+                    Colors.yellow,
+                  ),
                 ),
               ],
             );
@@ -86,14 +110,10 @@ class DashboardData extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        gradient: LinearGradient(
-          colors: [color.withOpacity(0.8), color],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: color,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: color.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 5,
             offset: Offset(0, 2),
@@ -106,7 +126,7 @@ class DashboardData extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -115,11 +135,10 @@ class DashboardData extends StatelessWidget {
           Text(
             count,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 24,
             ),
           ),
-          
         ],
       ),
     );

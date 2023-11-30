@@ -89,9 +89,13 @@ class _UpdateAnimalState extends State<UpdateAnimal> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Update Hewan'),
+        backgroundColor: Colors.orange,
       ),
+      backgroundColor: Colors.yellow[100],
       body: Padding(
+        
         padding: const EdgeInsets.all(16.0),
+        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

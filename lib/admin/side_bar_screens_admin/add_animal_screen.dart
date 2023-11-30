@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 class AddAnimal extends StatefulWidget {
   const AddAnimal({Key? key}) : super(key: key);
 
-  static const String routeName = '\AddAnimal';
+  static const String routeName = '/AddAnimal';
 
   @override
   _AddAnimalState createState() => _AddAnimalState();
@@ -25,6 +25,8 @@ class _AddAnimalState extends State<AddAnimal> {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> _uploadData() async {
+    // ... (unchanged code)
+    
     if (_nameController.text.isEmpty ||
         _orderController.text.isEmpty ||
         _descriptionController.text.isEmpty) {
@@ -79,10 +81,11 @@ class _AddAnimalState extends State<AddAnimal> {
 
       // Tampilkan pesan upload berhasil
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Upload berhasil!'),
-        ),
-      );
+      SnackBar(
+        content: Text('Upload berhasil!'),
+        backgroundColor: Colors.green, // Snackbar background color
+      ),
+    );
     } else {
       // Tampilkan pesan jika gambar tidak dipilih
       ScaffoldMessenger.of(context).showSnackBar(
@@ -91,6 +94,9 @@ class _AddAnimalState extends State<AddAnimal> {
         ),
       );
     }
+
+   
+    
   }
 
   Future<void> _pickImage() async {
@@ -104,50 +110,95 @@ class _AddAnimalState extends State<AddAnimal> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Text(
-              'Add Animal',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 36,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text('Add Animal'),
+        backgroundColor: Colors.orange,
+      ),
+      backgroundColor: Colors.orange,
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.yellow, const Color.fromARGB(255, 255, 132, 0)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text(
+                'Add Animal',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 36,
+                  color: Colors.white, // Title text color
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nama Hewan'),
-            ),
-            TextFormField(
-              controller: _orderController,
-              decoration: InputDecoration(labelText: 'Ordo Hewan'),
-            ),
-            TextFormField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Deskripsi Hewan'),
-            ),
-            SizedBox(height: 20),
-            _image != null
-                ? Image.file(
-                    _image!,
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  )
-                : Container(),
-            ElevatedButton(
-              onPressed: _pickImage,
-              child: Text('Pilih Gambar'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _uploadData,
-              child: Text('Upload Data'),
-            ),
-          ],
+              SizedBox(height: 20),
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Nama Hewan',
+                  filled: true,
+                  fillColor: Colors.white, // Input field background color
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _orderController,
+                decoration: InputDecoration(
+                  labelText: 'Ordo Hewan',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  labelText: 'Deskripsi Hewan',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              _image != null
+                  ? Image.file(
+                      _image!,
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(),
+              ElevatedButton(
+                onPressed: _pickImage,
+                child: Text('Pilih Gambar'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white, // Button color
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _uploadData,
+                child: Text('Upload Data'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white, // Button color
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
