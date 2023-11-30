@@ -242,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text(
                 "Don't have an Account? Sign Up",
                 style: TextStyle(
-                  color: Colors.blue, // Ubah warna teks sesuai kebutuhan
+                  color: Colors.black, // Ubah warna teks sesuai kebutuhan
                 ),
               ),
             )
