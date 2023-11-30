@@ -55,6 +55,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Define a media query for responsive design
+    var mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -71,8 +74,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
             },
           ),
         ],
+        backgroundColor: Colors.orange,
       ),
+      backgroundColor: Colors.yellow[200],
       body: Center(
+        
         child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           stream: _firestore.collection('users').doc(_user.uid).snapshots(),
           builder: (context, snapshot) {
@@ -91,6 +97,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             String _tanggalLahir = userData.get('tanggal_lahir') ?? '';
 
             return ListView(
+              
               padding: EdgeInsets.all(16),
               children: <Widget>[
                 ListTile(
@@ -113,10 +120,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   subtitle: Text(_tanggalLahir),
                   leading: Icon(Icons.calendar_today),
                 ),
-                IconButton(
-                  icon: Icon(Icons.exit_to_app),
+                SizedBox(height: mediaQuery.size.height * 0.05),
+                ElevatedButton(
                   onPressed: _signOut,
-                  tooltip: 'Logout', // Tooltip for the IconButton,
+                  child: Text('Logout'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.yellow, // Background color
+                    onPrimary: Colors.black, // Text color
+                  ),
                 ),
               ],
             );

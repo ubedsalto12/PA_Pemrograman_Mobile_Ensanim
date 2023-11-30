@@ -83,17 +83,14 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+
     return AdminScaffold(
-      
       appBar: AppBar(
         title: const Text('Admin'),
         backgroundColor: Colors.orange,
       ),
-      
       sideBar: SideBar(
         items: const [
           AdminMenuItem(

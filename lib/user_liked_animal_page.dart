@@ -28,7 +28,9 @@ class _LikedAnimalsPageState extends State<LikedAnimalsPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Hewan yang Disukai'),
+        backgroundColor: Colors.orange,
       ),
+      backgroundColor: Colors.yellow[100],
       body: _user != null
           ? LikedAnimalsList(firestore: _firestore, userId: _user!.uid)
           : Center(
@@ -131,7 +133,7 @@ class LikedAnimalsList extends StatelessWidget {
                   var animalData =
                       animalSnapshot.data!.data() as Map<String, dynamic>;
 
-                  return Text(animalData['name']);
+                  return Text(animalData['name'],selectionColor: Colors.black,);
                 },
               ),
             );

@@ -7,6 +7,8 @@ class DashBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lebar = MediaQuery.of(context).size.width;
+    var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -15,6 +17,8 @@ class DashBoardScreen extends StatelessWidget {
       ),
       backgroundColor: Colors.orange,
       body: Container(
+        width: lebar,
+        height: tinggi,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
