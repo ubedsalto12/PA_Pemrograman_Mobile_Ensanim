@@ -92,50 +92,52 @@ class _UpdateAnimalState extends State<UpdateAnimal> {
         backgroundColor: Colors.orange,
       ),
       backgroundColor: Colors.yellow[100],
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
+          
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+          
         
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-        
-  
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nama Hewan'),
-            ),
-            TextField(
-              controller: _orderController,
-              decoration: InputDecoration(labelText: 'Ordo Hewan'),
-            ),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Deskripsi Hewan'),
-            ),
-            SizedBox(height: 20),
-            _image != null
-                ? Image.file(
-                    _image!,
-                    height: 150,
-                    width: 150,
-                    fit: BoxFit.cover,
-                  )
-                : Image.network(
-                    _imageUrlController.text,
-                    height: 150,
-                    width: 150,
-                    fit: BoxFit.cover,
-                  ),
-            ElevatedButton(
-              onPressed: _pickImage,
-              child: Text('Pilih Gambar dari Galeri'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _updateAnimal,
-              child: Text('Perbarui Data'),
-            ),
-          ],
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(labelText: 'Nama Hewan'),
+              ),
+              TextField(
+                controller: _orderController,
+                decoration: InputDecoration(labelText: 'Ordo Hewan'),
+              ),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Deskripsi Hewan'),
+              ),
+              SizedBox(height: 20),
+              _image != null
+                  ? Image.file(
+                      _image!,
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.network(
+                      _imageUrlController.text,
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.cover,
+                    ),
+              ElevatedButton(
+                onPressed: _pickImage,
+                child: Text('Pilih Gambar dari Galeri'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _updateAnimal,
+                child: Text('Perbarui Data'),
+              ),
+            ],
+          ),
         ),
       ),
     );

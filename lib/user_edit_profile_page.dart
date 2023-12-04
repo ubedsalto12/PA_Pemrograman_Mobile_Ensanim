@@ -29,7 +29,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Profile'),
+        backgroundColor: Colors.orange,
       ),
+      backgroundColor: Colors.yellow[200],
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -40,7 +42,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             }
 
             if (!snapshot.hasData || !snapshot.data!.exists) {
-              return Text('User data not found!'); // Tampilkan pesan jika data pengguna tidak ditemukan
+              return Text(
+                  'User data not found!'); // Tampilkan pesan jika data pengguna tidak ditemukan
             }
 
             var userData = snapshot.data!;
