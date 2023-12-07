@@ -72,7 +72,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     await _updateUserData();
 
                     // Kembali ke halaman profil setelah perubahan disimpan
-                    Navigator.pop(context);
                   },
                   child: Text('Save'),
                 ),
@@ -86,10 +85,52 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Future<void> _updateUserData() async {
     // Update data pengguna di Firestore
-    await _firestore.collection('users').doc(_user.uid).update({
-      'displayName': _displayNameController.text,
-      'city': _cityController.text,
-      'tanggal_lahir': _tanggalLahirController.text,
-    });
+    if (_displayNameController.text.isEmpty ||
+        _cityController.text.isEmpty ||
+        _tanggalLahirController.text.isEmpty) {
+      // Tampilkan peringatan jika ada teks yang kosong
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Peringatan'),
+            content: Text('Harap isi semua kolom teks!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Updated'),
+            content: Text('Data Berhasil Di Update'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      await _firestore.collection('users').doc(_user.uid).update({
+        'displayName': _displayNameController.text,
+        'city': _cityController.text,
+        'tanggal_lahir': _tanggalLahirController.text,
+      });
+    }
   }
 }
