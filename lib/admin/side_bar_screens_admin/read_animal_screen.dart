@@ -17,6 +17,7 @@ class _ReadAnimalState extends State<ReadAnimal> {
   TextEditingController _searchController = TextEditingController();
 
   Future<void> _deleteAnimal(String documentId) async {
+    
     await _firestore.collection('animals').doc(documentId).delete();
   }
 

@@ -45,7 +45,29 @@ class _UpdateAnimalState extends State<UpdateAnimal> {
   }
 
   Future<void> _updateAnimal() async {
-    if (_image != null) {
+    if (_nameController.text.isEmpty ||
+        _orderController.text.isEmpty ||
+        _descriptionController.text.isEmpty) {
+      // Tampilkan peringatan jika ada teks yang kosong
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Peringatan'),
+            content: Text('Harap isi semua kolom teks!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    } else if (_image != null) {
       // Upload gambar ke Firebase Storage
       final Reference storageReference = FirebaseStorage.instance
           .ref()
@@ -94,11 +116,8 @@ class _UpdateAnimalState extends State<UpdateAnimal> {
       backgroundColor: Colors.yellow[100],
       body: SingleChildScrollView(
         child: Padding(
-          
           padding: const EdgeInsets.all(16.0),
           child: Column(
-          
-        
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
